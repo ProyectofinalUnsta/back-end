@@ -1,4 +1,5 @@
 import Event from "../schema/eventSchema.js";
+import { converterController } from "./ConverterController.js";
 
 export class eventController {
   static async getEventos(req, res) {
@@ -10,18 +11,25 @@ export class eventController {
     }
   }
 
-  static async postEventos(req, res) {
+  static async postEventos (req, res) {
+
     try {
-      const { title, description, breveDescripcion, fecha,hora,categoria,lugar,imagen } = req.body;
-      if (!title || !description || !breveDescripcion || !fecha || !hora || !categoria || !lugar || !imagen) {
+    
+      const { title, descripcion, breveDescripcion, fecha,hora,categoria,lugar } = req.body;
+ 
+      if (!title || !descripcion || !breveDescripcion || !fecha || !hora || !categoria || !lugar || !req.file) {
         return res.status(400).json({ error: "All fields are required" });
       }
-      const event = new Event({ title, description, breveDescripcion, fecha,hora,categoria,lugar,imagen });
+      const res = await converterController(req.file)
+     let imagen = res.url
+      const event = new Event({ title, descripcion, breveDescripcion, fecha,hora,categoria,lugar,imagen });
+  
       await event.save();
-      res.status(201).json({ message: "Event created successfully!" });
     } catch (error) {
+     
       res.status(400).json({ error: error.message });
     }
+    res.status(200).send({message: 'Evento creado de manera exitosa!'})
   }
 
   static async getEventoById(req, res) {
