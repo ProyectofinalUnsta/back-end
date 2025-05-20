@@ -29,12 +29,12 @@ export class AuthController {
   }
 
   static async login(req, res) {
-    try {
-      const { username, password } = req.body;
-      const user = await User.findOne({ username });
 
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ error: "Credenciales inválidas" });
+        return res.status(401).json({ message: "Credenciales inválidas" });
       }
 
       // Generar tokens
