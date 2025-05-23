@@ -11,7 +11,7 @@ export const converterController = async (imagen) => {
       contentType: imagen.mimetype || 'image/webp'           
     })
 
-    const response = await axios.post('https://convertidor-webp-service-production.up.railway.app/upload', form, {
+    const response = await axios.post('https://convertidor-webp-service.onrender.com/upload', form, {
       headers: form.getHeaders() 
     })
 
