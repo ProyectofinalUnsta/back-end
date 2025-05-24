@@ -1,5 +1,5 @@
 import Event from "../schema/eventSchema.js";
-import { converterController } from "./ConverterController.js";
+import { converterController } from "../controller/converterController.js";
 
 export class eventController {
   static async getEventos(req, res) {
