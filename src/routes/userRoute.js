@@ -12,10 +12,12 @@ userRoute.use((_req, res, next) => {
 });
 
 userRoute.get("/", async (req, res) => {
+
   try {
-    const eventos = await Event.find();
+    const eventos = await eventController.getEventos();
     res.status(200).json(eventos);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: error.message });
   }
 });

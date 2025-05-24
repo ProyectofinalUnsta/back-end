@@ -5,32 +5,44 @@ export class eventController {
   static async getEventos(req, res) {
     try {
       const eventos = await Event.find();
-      res.status(200).json(eventos);
+     return eventos
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      return error
     }
   }
 
   static async postEventos (req, res) {
+  try {
+    const { title, descripcion, breveDescripcion, fecha, hora, categoria, lugar } = req.body;
 
-    try {
-    
-      const { title, descripcion, breveDescripcion, fecha,hora,categoria,lugar } = req.body;
- 
-      if (!title || !descripcion || !breveDescripcion || !fecha || !hora || !categoria || !lugar || !req.file) {
-        return res.status(400).json({ error: "All fields are required" });
-      }
-      const res = await converterController(req.file)
-     let imagen = res.url
-      const event = new Event({ title, descripcion, breveDescripcion, fecha,hora,categoria,lugar,imagen });
-  
-      await event.save();
-    } catch (error) {
-     
-      res.status(400).json({ error: error.message });
+    if (!title || !descripcion || !breveDescripcion || !fecha || !hora || !categoria || !lugar || !req.file) {
+      return res.status(400).json({ error: 'Todos los campos son requeridos' });
     }
-    res.status(200).send({message: 'Evento creado de manera exitosa!'})
+
+    const uploadResult = await converterController(req.file);
+    const imagen = uploadResult.url;
+
+    const event = new Event({
+      title,
+      descripcion,
+      breveDescripcion,
+      fecha,
+      hora,
+      categoria,
+      lugar,
+      imagen
+    });
+
+    await event.save();
+
+    return res.status(200).json({ message: 'Evento creado de manera exitosa!' });
+
+  } catch (error) {
+    console.error("Error al crear evento:", error);
+    return res.status(500).json({ error: 'Error del servidor: ' + error.message });
   }
+}
+
 
   static async getEventoById(req, res) {
     try {
@@ -46,10 +58,10 @@ export class eventController {
 
   static async updateEvento(req, res) {
     try {
-      const { title, description, date, location } = req.body;
+      const { title, descripcion, lugar, fecha, breveDescripcion, hora, categoria, imagen } = req.body;
       const updatedEvent = await Event.findByIdAndUpdate(
         req.params.id,
-        { title, description, date, location },
+        { title, descripcion, fecha, lugar, breveDescripcion, hora, categoria, imagen },
         { new: true },
       );
 

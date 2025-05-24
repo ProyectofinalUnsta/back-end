@@ -1,7 +1,7 @@
 import express from "express";
 import router from "./router/router.js";
 import cookieParser from "cookie-parser";
-import { mongooseconection } from "./conection/mongoconection.js";
+import { mongooseConnection } from "./conection/mongoconection.js";
 import data from "./const/const.js";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -45,7 +45,7 @@ app.use((err, req, res, next) => {
 // Iniciar el servidor solo si la conexión a MongoDB es exitosa
 const startServer = async () => {
   try {
-    await mongooseconection(); // Conectar a MongoDB
+    await mongooseConnection(); // Conectar a MongoDB
     const PORT = data.port;
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en el puerto ${PORT}`);

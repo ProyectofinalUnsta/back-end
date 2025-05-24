@@ -5,8 +5,9 @@ import multer from 'multer'
 const upload = multer()
 const adminRoute = express.Router();
 
+
 // Middleware de autenticación para todas las rutas de /admin
-// adminRoute.use(authenticateToken);
+ adminRoute.use(authenticateToken);
 
 // Rutas
 adminRoute.get("/", eventController.getEventos);

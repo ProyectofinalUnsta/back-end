@@ -7,7 +7,7 @@ const data = {
     refreshSecret: process.env.JWT_REFRESH_SECRET || "refresh_secret456",
     tokenExpiry: process.env.TOKEN_EXPIRY || "1h",
     refreshTokenExpiry: process.env.REFRESH_TOKEN_EXPIRY || "7d",
-    environment: process.env.NODE_ENV || "development",
+    environment: process.env.NODE_ENV || "development",
     allowedFileTypes: [
       // PDF
       "application/pdf",

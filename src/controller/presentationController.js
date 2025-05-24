@@ -1,8 +1,8 @@
 // src/controller/presentationController.js
 import Presentation from "../schema/PresentationSchema.js";
 import mongoose from "mongoose";
-import { getGfs } from "../conection/mongoconection.js";
-import { ObjectId } from "mongodb";
+import { getGridFSBucket } from "../lib/gridfs.js";
+
 export class PresentationController {
   // Obtener todas las presentaciones
   static async getPresentations(req, res) {
@@ -34,8 +34,7 @@ export class PresentationController {
 
 static async createPresentation(req, res) {
   try {
-    const gfs = await getGfs();
-
+    const gfs = await getGridFSBucket();
     if (!gfs) {
       return res.status(500).json({ error: "GridFS no está disponible aún" });
     }
@@ -44,9 +43,7 @@ static async createPresentation(req, res) {
       return res.status(400).json({ error: "No se ha enviado ningún archivo" });
     }
 
-    const { file } = req;  
-
-    const { user, event, format } = req.body;
+    const { user, event, format, description, tags } = req.body;
 
     if (!user || !event || !format) {
       return res.status(400).json({
@@ -55,62 +52,68 @@ static async createPresentation(req, res) {
       });
     }
 
-    // Creamos el stream de subida
-    const uploadStream = gfs.openUploadStream(req.file.originalname, {
-      contentType: req.file.mimetype,
-      metadata: {
-        uploadedBy: user,
-      },
+    const { originalname, mimetype, size, buffer } = req.file;
+    const uploadStream = gfs.openUploadStream(originalname, {
+      contentType: mimetype,
+      metadata: { uploadedBy: user },
     });
 
-    // Escribimos el buffer en GridFS
-    uploadStream.end(req.file.buffer);
+    // Prevenir múltiples respuestas
+    let responded = false;
 
     uploadStream.on("error", (err) => {
-      console.error("Error subiendo archivo:", err);
-      return res.status(500).json({ error: "Error al subir el archivo a GridFS" });
-    });
-
-    uploadStream.on("finish", async (uploadedFile) => {
-      console.log("Archivo guardado con ID:", uploadStream.id);
-
-      // Aquí ya podés guardar la referencia en tu colección Presentation
-      const presentation = new Presentation({
-        user: req.body.user,
-        event: req.body.event,
-        format: req.body.format,
-        originalName: file.originalname,  // Nombre original del archivo
-        filename: uploadStream.filename,  // El nombre del archivo cargado en GridFS
-        fileSize: file.size,  // El tamaño del archivo
-        fileType: file.mimetype,  // El tipo MIME del archivo
-        uploadDate: new Date(), 
-        fileId: uploadStream.id,  // Aquí usamos el ID del archivo subido
-        description: req.body.description || '',
-        tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : [],
-      });
-      try {
-        const savedPresentation = await presentation.save();
-        res.status(201).json({
-          message: "Presentación subida exitosamente",
-          presentation: savedPresentation
-        });
-      } catch (err) {
-        console.error("Error al guardar la presentación:", err);
-        res.status(500).json({ error: err.message });
+      if (!responded) {
+        responded = true;
+        console.error("Error subiendo archivo:", err);
+        return res.status(500).json({ error: "Error al subir el archivo a GridFS" });
       }
     });
 
-    // Si hay un error al cargar el archivo
-    uploadStream.on('error', (err) => {
-      console.error("Error al cargar el archivo en GridFS:", err);
-      res.status(500).json({ error: "Error al cargar el archivo en GridFS" });
+
+
+    uploadStream.on("finish", async () => {
+      try {
+
+        const presentation = new Presentation({
+          user,
+          event,
+          format,
+          originalName: originalname,
+          filename: uploadStream.filename,
+          fileSize: size,
+          fileType: mimetype,
+          uploadDate: new Date(),
+          fileId: uploadStream.id,
+          description: description || '',
+          tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+        });
+
+        const savedPresentation = await presentation.save();
+
+        if (!responded) {
+          responded = true;
+          return res.status(201).json({
+            message: "Presentación subida exitosamente",
+            presentation: savedPresentation
+          });
+        }
+      } catch (err) {
+        if (!responded) {
+          responded = true;
+          console.error("Error al guardar la presentación:", err);
+          return res.status(500).json({ error: err.message });
+        }
+      }
     });
+
+    uploadStream.end(buffer);
 
   } catch (error) {
     console.error("Error al crear presentación:", error);
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 }
+
 
 
   // Descargar una presentación
