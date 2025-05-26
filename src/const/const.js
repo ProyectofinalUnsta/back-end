@@ -8,6 +8,7 @@ const data = {
     tokenExpiry: process.env.TOKEN_EXPIRY || "1h",
     refreshTokenExpiry: process.env.REFRESH_TOKEN_EXPIRY || "7d",
     environment: process.env.NODE_ENV || "development",
+    allowRequest: process.env.ALLOW_URL || "*",
     allowedFileTypes: [
       // PDF
       "application/pdf",

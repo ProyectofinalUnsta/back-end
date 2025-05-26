@@ -13,7 +13,7 @@ const app = express();
 // Configuración de CORS (global)
 app.use(
   cors({
-    origin: "*", // Permitir todos los orígenes para pruebas en Postman
+    origin: data.allowRequest, // Permitir todos los orígenes para pruebas en Postman
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, // Permitir cookies (necesario para access_token)
