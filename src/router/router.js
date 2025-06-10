@@ -4,6 +4,7 @@ import adminRoute from "../routes/adminRoute.js";
 import presentationRoute from "../routes/presentationRoute.js";
 import adminPresentationRoute from "../routes/adminPresentationRoute.js";
 import authRoute from "../routes/authRoute.js";
+import fileRoute from "../routes/fileRoute.js";
 import data from "../const/const.js";
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router.use("/admin", adminRoute);
 router.use("/presentations", presentationRoute);
 router.use("/admin/presentations", adminPresentationRoute);
 router.use("/auth", authRoute);
+router.use("/files", fileRoute);
 
 export default router;

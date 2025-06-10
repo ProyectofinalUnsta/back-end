@@ -5,6 +5,12 @@ import { mongooseConnection } from "./conection/mongoconection.js";
 import data from "./const/const.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from 'url';
+import multer from "multer";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -25,6 +31,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Servir archivos estáticos desde la carpeta uploads
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Rutas API
 app.use("/api", router);
 
@@ -35,7 +44,15 @@ app.get("/", (req, res) => {
 
 // Middleware de manejo de errores global
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Error:', err);
+  
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({
+      error: 'Error al subir el archivo',
+      details: err.message
+    });
+  }
+  
   res.status(500).json({
     error: "Error interno del servidor",
     message: process.env.NODE_ENV === "development" ? err.message : "Algo salió mal",
