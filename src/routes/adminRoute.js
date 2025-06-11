@@ -11,7 +11,7 @@ const adminRoute = express.Router();
 
 // Rutas
 adminRoute.get("/", eventController.getEventos);
-adminRoute.post("/", upload.single('image'),  eventController.postEventos);
+adminRoute.post("/", upload.single('image'), eventController.postEventos);
 adminRoute.get("/:id", eventController.getEventoById);
 adminRoute.put("/:id", eventController.updateEvento);
 adminRoute.delete("/:id", eventController.deleteEvento);

@@ -2,7 +2,7 @@ import User from "../schema/UserSchema.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import data from "../const/const.js";
-
+import { emailController } from "./emailController.js";
 export class AuthController {
   static async register(req, res) {
     try {
@@ -13,14 +13,19 @@ export class AuthController {
       if (existingUser) {
         return res.status(400).json({ error: "El nombre de usuario ya está en uso" });
       }
+      const existMail = await User.findOne({email})
+      if(existMail){
+        return res.status(400).json({ error: "El email ingresado ya está en uso" });
+      }
 
       const hashedPassword = await bcrypt.hash(password, 10); // Hashear la contraseña
       const user = new User({ username, password: hashedPassword, email });
       await user.save();
-
+      const MailResponse = await emailController.registroEmail(email);
       // No devolver la contraseña en la respuesta
-      const userResponse = user.toObject();
+      let userResponse = user.toObject();
       delete userResponse.password;
+      userResponse.mailRegistro = MailResponse;
 
       res.status(201).json({ message: "Usuario registrado exitosamente", user: userResponse });
     } catch (error) {
@@ -54,6 +59,7 @@ export class AuthController {
         user: {
           id: user._id,
           username: user.username,
+          mail:user.email,
           role: user.role,
         },
         token: token,

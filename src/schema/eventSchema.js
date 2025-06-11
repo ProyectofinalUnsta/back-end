@@ -32,6 +32,10 @@ const eventSchema = new mongoose.Schema({
   imagen:{
     type:String,
     required:true
+  },
+  creadoPor:{
+    type:String,
+    required:true
   }
 });
 

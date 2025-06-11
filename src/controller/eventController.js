@@ -1,6 +1,6 @@
 import Event from "../schema/eventSchema.js";
 import { converterController } from "../controller/converterController.js";
-
+import { emailController } from "./emailController.js";
 export class eventController {
   static async getEventos(req, res) {
     try {
@@ -12,10 +12,11 @@ export class eventController {
   }
 
   static async postEventos (req, res) {
-  try {
-    const { title, descripcion, breveDescripcion, fecha, hora, categoria, lugar } = req.body;
 
-    if (!title || !descripcion || !breveDescripcion || !fecha || !hora || !categoria || !lugar || !req.file) {
+  try {
+    const { title, descripcion, breveDescripcion, fecha, hora, categoria, lugar , email } = req.body;
+
+    if (!title || !descripcion || !breveDescripcion || !fecha || !hora || !categoria || !lugar || !email || !req.file) {
       return res.status(400).json({ error: 'Todos los campos son requeridos' });
     }
 
@@ -30,11 +31,12 @@ export class eventController {
       hora,
       categoria,
       lugar,
-      imagen
+      imagen,
+      creadoPor:email
     });
 
     await event.save();
-
+    await emailController.crearEvento(event._id,event.creadoPor)
     return res.status(200).json({ message: 'Evento creado de manera exitosa!' });
 
   } catch (error) {

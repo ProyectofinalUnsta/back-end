@@ -1,9 +1,7 @@
 import express from "express";
 import { eventController } from "../controller/eventController.js";
 import { authenticateToken } from "../middleware/auth.js";
-
 const eventRoute = express.Router();
-
 // Rutas públicas
 eventRoute.get("/", eventController.getEventos);
 eventRoute.get("/:id", eventController.getEventoById);
