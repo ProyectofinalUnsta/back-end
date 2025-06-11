@@ -4,7 +4,6 @@ export const converterController = async (imagen) => {
   try {
     const form = new FormData()
 
-    console.log(imagen)
 
     form.append('image', imagen.buffer, {
       filename: imagen.originalname || 'archivo.webp',       

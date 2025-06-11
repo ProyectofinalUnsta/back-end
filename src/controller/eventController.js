@@ -12,7 +12,6 @@ export class eventController {
   }
 
   static async postEventos (req, res) {
-
   try {
     const { title, descripcion, breveDescripcion, fecha, hora, categoria, lugar , email } = req.body;
 
@@ -21,6 +20,7 @@ export class eventController {
     }
 
     const uploadResult = await converterController(req.file);
+
     const imagen = uploadResult.url;
 
     const event = new Event({
