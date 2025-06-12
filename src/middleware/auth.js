@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import data from "../const/const.js";
 
 export const authenticateToken = (req, res, next) => {
-  const token = req.cookies.access_token || req.headers.authorization?.split(" ")[1];
+  const rawToken = req.cookies.access_token || req.headers.authorization?.split(" ")[1];
+  const token = rawToken?.replace(/^"|"$/g, '');
 
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: No token provided" });
@@ -13,6 +14,7 @@ export const authenticateToken = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
+    console.log(error.message)
     return res.status(401).json({ error: "Unauthorized: Invalid token" });
   }
 };

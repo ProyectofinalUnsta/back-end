@@ -46,7 +46,7 @@ export class AuthController {
       const token = jwt.sign({ id: user._id, username: user.username, role: user.role }, data.secret, {
         expiresIn: data.tokenExpiry,
       });
-
+       console.log(token)
       // Configurar cookies
       res.cookie("access_token", token, {
         httpOnly: true,
