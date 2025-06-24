@@ -7,21 +7,29 @@ export class AuthController {
   static async register(req, res) {
     try {
       const { username, password, email } = req.body;
-
+    
       // Verificar si el usuario ya existe
       const existingUser = await User.findOne({ username });
+      console.log(existingUser)
       if (existingUser) {
         return res.status(400).json({ error: "El nombre de usuario ya está en uso" });
       }
+
+      
       const existMail = await User.findOne({email})
       if(existMail){
         return res.status(400).json({ error: "El email ingresado ya está en uso" });
       }
+ 
+     
 
       const hashedPassword = await bcrypt.hash(password, 10); // Hashear la contraseña
       const user = new User({ username, password: hashedPassword, email });
+      console.log(user)
       await user.save();
+       console.log(user)
       const MailResponse = await emailController.registroEmail(email);
+      console.log(MailResponse)
       // No devolver la contraseña en la respuesta
       let userResponse = user.toObject();
       delete userResponse.password;

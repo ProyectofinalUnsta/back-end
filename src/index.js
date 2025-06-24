@@ -72,7 +72,9 @@ const startServer = async () => {
     process.exit(1); // Detener el servidor si la conexión falla
   }
 };
+if (process.env.NODE_ENV !== 'test') {
+ startServer();
+}
 
-startServer();
 
 export default app;

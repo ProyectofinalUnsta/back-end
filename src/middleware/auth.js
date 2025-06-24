@@ -4,7 +4,7 @@ import data from "../const/const.js";
 export const authenticateToken = (req, res, next) => {
   const rawToken = req.cookies.access_token || req.headers.authorization?.split(" ")[1];
   const token = rawToken?.replace(/^"|"$/g, '');
-
+  console.log(token,rawToken)
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: No token provided" });
   }
