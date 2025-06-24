@@ -20,7 +20,6 @@ export class eventController {
     }
 
     const uploadResult = await converterController(req.file);
-
     const imagen = uploadResult.url;
 
     const event = new Event({

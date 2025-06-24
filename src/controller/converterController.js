@@ -9,11 +9,11 @@ export const converterController = async (imagen) => {
       filename: imagen.originalname || 'archivo.webp',       
       contentType: imagen.mimetype || 'image/webp'           
     })
-
+      
     const response = await axios.post('https://convertidor-webp-service.onrender.com/upload', form, {
-      headers: form.getHeaders() 
+      headers: form.getHeaders()
     })
-
+    console.log(response)
     return response.data
 
   } catch (err) {
