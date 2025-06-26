@@ -1,5 +1,5 @@
 import express from 'express';
-import { uploadFile, getFiles, deleteFile } from '../controller/fileController.js';
+import { uploadFile, getFiles, deleteFile, getFilesByMail } from '../controller/fileController.js';
 import { upload } from '../controller/fileController.js';
 
 const fileRoute = express.Router();
@@ -16,6 +16,8 @@ fileRoute.post('/upload', (req, res) => {
 
 // Ruta para obtener archivos
 fileRoute.get('/', getFiles);
+
+fileRoute.get('/:mail', getFilesByMail);
 
 // Ruta para eliminar archivo
 fileRoute.delete('/:id', deleteFile);

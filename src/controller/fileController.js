@@ -98,6 +98,18 @@ export const getFiles = async (req, res) => {
   }
 };
 
+export const getFilesByMail = async (req,res) => {
+  try {
+    const files = await File.find({gmail:req.params.mail});
+    res.json(files)
+  } catch (err) {
+     console.error('Error al obtener archivos:', err);
+    res.status(500).json({ error: 'Error al obtener los archivos' });
+  }
+}
+
+
+
 // Eliminar archivo
 export const deleteFile = async (req, res) => {
   try {
