@@ -14,6 +14,19 @@ export class PresentationController {
       res.status(500).json({ error: error.message });
     }
   }
+  
+  static async getPresentationByMail(req,res) {
+   try {
+      const presentation = await Presentation.find({gmail:req.params.gmail}).populate("event");
+      if (!presentation) {
+        return res.status(404).json({ error: "Presentación no encontrada" });
+      }
+      res.status(200).json(presentation);
+    } catch (error) {
+      console.error("Error al obtener presentación:", error);
+      res.status(500).json({ error: error.message });
+    }
+  }
 
   // Obtener una presentación por ID
   static async getPresentation(req, res) {
@@ -124,7 +137,7 @@ static async createPresentation(req, res) {
         return res.status(404).json({ error: "Presentación no encontrada" });
       }
 
-      const gfs = getGfs();
+      const gfs = getGridFSBucket();
       if (!gfs) {
         return res.status(500).json({ error: "Error en el sistema de archivos" });
       }
@@ -192,7 +205,7 @@ static async createPresentation(req, res) {
       }
 
       // Eliminar archivo de GridFS
-      const gfs = getGfs();
+      const gfs = getGridFSBucket();
       if (gfs) {
         try {
           await gfs.delete(new mongoose.Types.ObjectId(presentation.fileId));
