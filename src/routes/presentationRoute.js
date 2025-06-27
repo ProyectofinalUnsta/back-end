@@ -14,6 +14,7 @@ const presentationRoute = express.Router();
 // Rutas públicas
 presentationRoute.get("/", PresentationController.getPresentations);
 presentationRoute.get("/:id", PresentationController.getPresentation);
+presentationRoute.delete('/:id',PresentationController.deletePresentation)
  // Rutas que requieren autenticación
  presentationRoute.use("/download/:id", authenticateToken);
 presentationRoute.get("/download/:id", PresentationController.downloadPresentation);
