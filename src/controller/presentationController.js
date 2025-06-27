@@ -154,10 +154,11 @@ static async createPresentation(req, res) {
 
       const downloadStream = gfs.openDownloadStream(fileId);
       
-      downloadStream.on("error", (error) => {
-        console.error("Error al descargar archivo:", error);
-        return res.status(404).json({ error: "Archivo no encontrado" });
-      });
+   downloadStream.on("error", (error) => {
+  console.error("Error en stream:", error);
+  res.set("Content-Type", "application/json");
+  res.status(404).end(JSON.stringify({ error: "Archivo no encontrado" }));
+});
 
       downloadStream.pipe(res);
     } catch (error) {
