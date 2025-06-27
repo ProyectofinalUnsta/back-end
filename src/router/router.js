@@ -5,6 +5,7 @@ import presentationRoute from "../routes/presentationRoute.js";
 import adminPresentationRoute from "../routes/adminPresentationRoute.js";
 import authRoute from "../routes/authRoute.js";
 import fileRoute from "../routes/fileRoute.js";
+import InscriptosRoute from "../routes/InscriptosRoute.js";
 import data from "../const/const.js";
 
 const router = express.Router();
@@ -22,5 +23,6 @@ router.use("/presentations", presentationRoute);
 router.use("/admin/presentations", adminPresentationRoute);
 router.use("/auth", authRoute);
 router.use("/files", fileRoute);
+router.use('/inscriptos',InscriptosRoute)
 
 export default router;

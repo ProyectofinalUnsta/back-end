@@ -43,12 +43,12 @@ static async createPresentation(req, res) {
       return res.status(400).json({ error: "No se ha enviado ningún archivo" });
     }
 
-    const { user, event, format, description, tags } = req.body;
+    const { user, event, format, description, gmail } = req.body;
 
-    if (!user || !event || !format) {
+    if (!user || !event || !format || !gmail) {
       return res.status(400).json({
         error: "Todos los campos son requeridos",
-        received: { user, event, format },
+        received: { user, event, format , gmail },
       });
     }
 
@@ -85,7 +85,7 @@ static async createPresentation(req, res) {
           uploadDate: new Date(),
           fileId: uploadStream.id,
           description: description || '',
-          tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+          gmail:gmail
         });
 
         const savedPresentation = await presentation.save();

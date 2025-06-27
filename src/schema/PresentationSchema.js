@@ -61,8 +61,15 @@ const PresentationSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    tags: [{
+    gmail: [{ 
       type: String,
+      required:true,
+      validate:{
+        validator: function (v){
+           return  /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim.test(v)
+        },
+        message: props => `${props.value} es invalido`
+      }
     }],
     downloads: {
       type: Number,
