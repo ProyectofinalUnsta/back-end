@@ -23,6 +23,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, // Permitir cookies (necesario para access_token)
+    exposedHeaders: ['Content-Disposition']  // exponer el contenido de las presentaciones
   }),
 );
 
