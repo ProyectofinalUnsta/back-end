@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const InscriptoSchema = new mongoose.Schema({
 idEvento: {
-    type:mongoose.Schema.type.ObjectId,
+    type:mongoose.Schema.types.ObjectId,
     ref:'Event',
     required:true,
     validate:{
