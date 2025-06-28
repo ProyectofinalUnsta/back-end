@@ -43,11 +43,7 @@ export class InscriptosController {
 
             try {
                 const inscripto = await Inscriptos.findOne({gmail:gmail, idEvento:idEvento})
-                if(inscripto.lenght > 1) {
-                    res.status(200).json({inscripto:true,id:inscripto._id})
-                } else {
-                    res.status(200).json({inscripto:false,id:inscripto._id})
-                }
+                 console.log(inscripto)
             
             } catch (err) {
                res.status(401).send(err.message)
