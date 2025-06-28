@@ -149,8 +149,8 @@ static async createPresentation(req, res) {
       await presentation.save();
 
       // Configurar headers para descarga
-      res.set("Content-Type", "application/octet-stream");
       res.set("Content-Disposition", `attachment: filename="${presentation.originalName}"`);
+      res.set("Content-Type", "application/octet-stream");
 
       const downloadStream = gfs.openDownloadStream(fileId);
       
