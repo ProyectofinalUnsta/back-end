@@ -36,6 +36,6 @@ required:true
 }
 })
 
-const Inscriptos = new mongoose.model('inscriptos',InscriptoSchema)
+const Inscriptos =  mongoose.model("inscriptos",InscriptoSchema)
 
 export default Inscriptos
