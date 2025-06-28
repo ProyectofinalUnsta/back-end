@@ -2,7 +2,7 @@
 import Presentation from "../schema/PresentationSchema.js";
 import mongoose from "mongoose";
 import { getGridFSBucket } from "../lib/gridfs.js";
-
+import mime from 'mime-types'
 export class PresentationController {
   // Obtener todas las presentaciones
   static async getPresentations(req, res) {
@@ -149,8 +149,9 @@ static async createPresentation(req, res) {
       await presentation.save();
 
       // Configurar headers para descarga
-      res.set("Content-Disposition", `attachment: filename="${presentation.originalName}"`);
-      // res.set("Content-Type", "application/octet-stream");
+      res.set("Content-Disposition", `attachment; filename="${presentation.originalName}"`);
+      const contentType = mime.lookup(presentation.originalName) || "application/octet-stream";
+       res.set("Content-Type", contentType);
 
       const downloadStream = gfs.openDownloadStream(fileId);
       
