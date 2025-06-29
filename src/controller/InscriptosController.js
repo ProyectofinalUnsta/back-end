@@ -38,8 +38,8 @@ export class InscriptosController {
      
     }
     static async getInscripcionPorEvento (req,res) {
-        const {gmail,idEvento} = req.body
-        console.log(gmail,idEvento)
+        const { gmail,idEvento } = req.query
+
         if(!gmail || !idEvento) {
           return res.status(400).send('Campos faltantes')
         } 
