@@ -39,8 +39,9 @@ export class InscriptosController {
     }
     static async getInscripcionPorEvento (req,res) {
         const {gmail,idEvento} = req.body
-        if(!gmail || !idEvento) return res.status(400).send('Campos faltantes')
-
+        if(!gmail || !idEvento) {
+          return res.status(400).send('Campos faltantes')
+        } 
             try {
                 const inscripto = await Inscriptos.findOne({gmail:gmail, idEvento: mongoose.Types.ObjectId(idEvento)})
                   if (!inscripto) {
