@@ -30,6 +30,7 @@ export class InscriptosController {
         try {
           const IdEventosInscriptos = await Inscriptos.find({gmail:req.params.gmail})
        const MappedIdEventosInscripto = IdEventosInscriptos.map(inscripto => new  mongoose.Types.ObjectId(inscripto.idEvento))
+       console.log(MappedIdEventosInscripto)
         const Archivos = await Presentation.find({event:{ $in: MappedIdEventosInscripto}})
          res.status(200).json(Archivos)
         } catch (err) {
@@ -48,7 +49,7 @@ export class InscriptosController {
                   if (!inscripto) {
                    return res.status(200).json({ inscrito: false, mensaje: 'No está inscripto' });
                    }
-                
+                 
                    return res.status(200).json({ inscrito: true, inscripto });
             
             } catch (err) {
