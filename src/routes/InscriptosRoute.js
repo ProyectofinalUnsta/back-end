@@ -5,7 +5,7 @@ const InscriptosRoute = express.Router()
 
 InscriptosRoute.post('/', InscriptosController.InscribirmeEvento)
 InscriptosRoute.get('/inscripto',InscriptosController.getInscripcionPorEvento)
-InscriptosRoute.get('/:gmail',InscriptosController.getArchivosInscripto)
+InscriptosRoute.get('/inscriptos/:gmail',InscriptosController.getArchivosInscripto)
 
 
 

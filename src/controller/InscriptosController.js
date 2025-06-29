@@ -25,6 +25,7 @@ export class InscriptosController {
         }
     }
     static async getArchivosInscripto (req,res) {
+        console.log(req.params.gmail)
         if(!req.params.gmail) return res.status(401).send('Error gmail es igual a Vacio')
 
         try {
