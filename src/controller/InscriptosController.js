@@ -29,6 +29,7 @@ export class InscriptosController {
 
         try {
           const IdEventosInscriptos = await Inscriptos.find({gmail:req.params.gmail})
+          console.log(IdEventosInscriptos)
        const MappedIdEventosInscripto = IdEventosInscriptos.map(inscripto => (inscripto.idEvento))
 
         const Archivos = await Presentation.find({event:{ $in: MappedIdEventosInscripto}})
