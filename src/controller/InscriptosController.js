@@ -44,10 +44,10 @@ export class InscriptosController {
             try {
                 const inscripto = await Inscriptos.findOne({gmail:gmail, idEvento: mongoose.Types.ObjectId(idEvento)})
                   if (!inscripto) {
-                   return res.status(404).json({ inscrito: false, mensaje: 'No está inscripto' });
+                   return res.status(404).send({ inscrito: false, mensaje: 'No está inscripto' });
                    }
                 
-                   return res.status(200).json({ inscrito: true, inscripto });
+                   return res.status(200).send({ inscrito: true, inscripto });
             
             } catch (err) {
                res.status(401).send(err.message)
