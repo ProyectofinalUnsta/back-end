@@ -25,13 +25,13 @@ export class InscriptosController {
         }
     }
     static async getArchivosInscripto (req,res) {
-        console.log(req.params.gmail)
+
         if(!req.params.gmail) return res.status(401).send('Error gmail es igual a Vacio')
 
         try {
           const IdEventosInscriptos = await Inscriptos.find({gmail:req.params.gmail})
-          console.log(IdEventosInscriptos)
-       const MappedIdEventosInscripto = IdEventosInscriptos.map(inscripto => (inscripto.idEvento))
+     
+       const MappedIdEventosInscripto = IdEventosInscriptos.map(inscripto => new mongoose.Types.ObjectId (inscripto.idEvento))
 
         const Archivos = await Presentation.find({event:{ $in: MappedIdEventosInscripto}})
          res.status(200).json(Archivos)
