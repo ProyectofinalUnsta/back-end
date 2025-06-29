@@ -44,7 +44,7 @@ export class InscriptosController {
           return res.status(400).send('Campos faltantes')
         } 
             try {
-                const inscripto = await Inscriptos.findOne({gmail:gmail, idEvento: mongoose.Types.ObjectId(idEvento)})
+                const inscripto = await Inscriptos.findOne({gmail:gmail, idEvento: new mongoose.Types.ObjectId(idEvento)})
                   if (!inscripto) {
                    return res.status(404).send({ inscrito: false, mensaje: 'No está inscripto' });
                    }
