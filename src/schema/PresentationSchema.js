@@ -61,7 +61,7 @@ const PresentationSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    gmail: [{ 
+    gmail: { 
       type: String,
       required:true,
       validate:{
@@ -70,7 +70,7 @@ const PresentationSchema = new mongoose.Schema(
         },
         message: props => `${props.value} es invalido`
       }
-    }],
+    },
     downloads: {
       type: Number,
       default: 0,
