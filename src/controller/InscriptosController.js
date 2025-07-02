@@ -31,8 +31,8 @@ export class InscriptosController {
         try {
           const IdEventosInscriptos = await Inscriptos.find({gmail:req.params.gmail})
           console.log(IdEventosInscriptos)
-       const MappedIdEventosInscripto = IdEventosInscriptos.map(inscripto => new mongoose.Types.ObjectId(inscripto.idEvento))
-      
+       const MappedIdEventosInscripto = IdEventosInscriptos.map(inscripto => mongoose.Types.ObjectId(inscripto.idEvento))
+           console.log( 'set de IDS', IdEventosInscriptos)
         const Archivos = await Presentation.find({event:{ $in: MappedIdEventosInscripto}})
    
          res.status(200).json(Archivos)
