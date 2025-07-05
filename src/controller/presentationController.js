@@ -18,6 +18,7 @@ export class PresentationController {
   static async getPresentationByMail(req,res) {
    try {
       const presentation = await Presentation.find({gmail:req.params.gmail}).populate("event");
+      console.log(presentation)
       if (!presentation) {
         return res.status(404).json({ error: "Presentación no encontrada" });
       }
