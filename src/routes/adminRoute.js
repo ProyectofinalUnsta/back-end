@@ -15,5 +15,6 @@ adminRoute.post("/", upload.single('image'), eventController.postEventos);
 adminRoute.get("/:id", eventController.getEventoById);
 adminRoute.put("/:id", eventController.updateEvento);
 adminRoute.delete("/:id", eventController.deleteEvento);
+adminRoute.delete('/event/:id', eventController.deleteEvent)
 
 export default adminRoute;

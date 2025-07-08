@@ -91,4 +91,18 @@ export class eventController {
       res.status(400).json({ error: error.message });
     }
   }
+
+  static async deleteEvent(req, res) {
+    try {
+      const eventId = req.params.id;
+      const deleted = await Event.findByIdAndDelete(eventId);
+      if (!deleted) {
+        return res.status(404).json({ error: 'Evento no encontrado' });
+      }
+      res.status(200).json({ message: 'Evento eliminado correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar evento:', error); // Log detallado
+      res.status(500).json({ error: error.message });
+    }
+  }
 }

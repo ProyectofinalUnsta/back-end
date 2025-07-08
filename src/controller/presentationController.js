@@ -128,7 +128,17 @@ static async createPresentation(req, res) {
   }
 }
 
-
+  // Obtener presentaciones por evento
+  static async getPresentationsByEvent(req, res) {
+    try {
+      const eventId = req.params.eventId;
+      const presentations = await Presentation.find({ event: eventId });
+      res.status(200).json(presentations);
+    } catch (error) {
+      console.error("Error al obtener presentaciones por evento:", error);
+      res.status(500).json({ error: error.message });
+    }
+  }
 
   // Descargar una presentación
   static async downloadPresentation(req, res) {
