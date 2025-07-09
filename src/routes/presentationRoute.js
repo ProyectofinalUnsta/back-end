@@ -15,6 +15,7 @@ const presentationRoute = express.Router();
 presentationRoute.get("/", PresentationController.getPresentations);
 presentationRoute.get("/:id", PresentationController.getPresentation);
 presentationRoute.get("/mispresentaciones/:gmail", PresentationController.getPresentationByMail);
+presentationRoute.get("/event/:eventId", PresentationController.getPresentationsByEvent);
 presentationRoute.delete('/:id',PresentationController.deletePresentation)
  // Rutas que requieren autenticación
  presentationRoute.use("/download/:id", authenticateToken);

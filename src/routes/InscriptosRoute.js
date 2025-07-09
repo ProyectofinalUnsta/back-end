@@ -6,7 +6,8 @@ const InscriptosRoute = express.Router()
 InscriptosRoute.post('/', InscriptosController.InscribirmeEvento)
 InscriptosRoute.get('/inscripto',InscriptosController.getInscripcionPorEvento)
 InscriptosRoute.get('/inscriptos/:gmail',InscriptosController.getArchivosInscripto)
-
+InscriptosRoute.delete('/baja', InscriptosController.desinscribirmeEvento)
+InscriptosRoute.get('/recuentos/admin', InscriptosController.getRecuentosEventosPorAdmin)
 
 
 export default InscriptosRoute
