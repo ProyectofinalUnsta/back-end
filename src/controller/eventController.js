@@ -37,7 +37,7 @@ export class eventController {
     });
 
     await event.save();
-    await emailController.crearEvento(event._id,event.creadoPor)
+    await emailController.crearEvento(codigoDisertante,event.creadoPor)
     return res.status(200).json({ message: 'Evento creado de manera exitosa!' });
 
   } catch (error) {

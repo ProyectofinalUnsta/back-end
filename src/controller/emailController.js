@@ -12,7 +12,7 @@ export class emailController {
      }
     }
     static async crearEvento (codigo,mail) {
-        let id = codigo.toString()
+        let id = codigo
         try{
      const mailResponse = await axios.post('https://email-sender-qs8y.onrender.com/codigo',{codigo:id,mail})
      if(mailResponse.status == 200) {
