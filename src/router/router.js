@@ -6,6 +6,7 @@ import adminPresentationRoute from "../routes/adminPresentationRoute.js";
 import authRoute from "../routes/authRoute.js";
 import fileRoute from "../routes/fileRoute.js";
 import InscriptosRoute from "../routes/InscriptosRoute.js";
+import DisertanteRoute from "../routes/DisertanteRoute.js";
 import data from "../const/const.js";
 
 const router = express.Router();
@@ -18,6 +19,7 @@ if (!data.secret) {
 
 // Montar las rutas
 router.use("/", userRoute);
+router.use('/disertante',DisertanteRoute)
 router.use("/admin", adminRoute);
 router.use("/presentations", presentationRoute);
 router.use("/admin/presentations", adminPresentationRoute);

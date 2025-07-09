@@ -1,6 +1,7 @@
 import Event from "../schema/eventSchema.js";
 import { converterController } from "../controller/converterController.js";
 import { emailController } from "./emailController.js";
+import { GeneradorCodigo } from "../utils/generadorCodigo.js";
 export class eventController {
   static async getEventos(req, res) {
     try {
@@ -21,7 +22,7 @@ export class eventController {
 
     const uploadResult = await converterController(req.file);
     const imagen = uploadResult.url;
-
+    const codigoDisertante = GeneradorCodigo.codigoDisertante()
     const event = new Event({
       title,
       descripcion,
@@ -31,7 +32,8 @@ export class eventController {
       categoria,
       lugar,
       imagen,
-      creadoPor:email
+      creadoPor:email,
+      codigoDisertante:codigoDisertante
     });
 
     await event.save();
@@ -64,7 +66,7 @@ export class eventController {
       const { title, descripcion, lugar, fecha, breveDescripcion, hora, categoria, imagen } = req.body;
       const updatedEvent = await Event.findByIdAndUpdate(
         req.params.id,
-        { title, descripcion, fecha, lugar, breveDescripcion, hora, categoria, imagen },
+        { title, descripcion, fecha, lugar, breveDescripcion, hora, categoria, imagen , codigoDisertante },
         { new: true },
       );
 

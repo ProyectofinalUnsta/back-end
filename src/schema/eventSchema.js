@@ -36,6 +36,10 @@ const eventSchema = new mongoose.Schema({
   creadoPor:{
     type:String,
     required:true
+  },
+  codigoDisertante:{
+    type:String,
+    required:true
   }
 });
 
