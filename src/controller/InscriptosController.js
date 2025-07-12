@@ -104,4 +104,26 @@ export class InscriptosController {
             res.status(500).send(err.message);
         }
     }
+    static async getEventosInscriptoPorGmail(req, res) {
+        const { gmail } = req.params;
+        if (!gmail) return res.status(400).json({ error: 'Gmail es requerido' });
+        try {
+            // Buscar inscripciones por gmail
+            const inscripciones = await Inscriptos.find({ gmail });
+            if (!inscripciones.length) return res.status(200).json([]);
+            // Obtener los IDs de los eventos y asegurarse que sean ObjectId
+            const eventosIds = inscripciones.map(i => {
+                try {
+                    return new mongoose.Types.ObjectId(i.idEvento);
+                } catch {
+                    return i.idEvento;
+                }
+            });
+            // Buscar los eventos completos
+            const eventos = await mongoose.model('Event').find({ _id: { $in: eventosIds } });
+            res.status(200).json(eventos);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
 }

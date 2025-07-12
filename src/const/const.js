@@ -1,7 +1,7 @@
 // src/const/const.js
 const data = {
   // agregar codigo de wpp
-   port: process.env.PORT || 3000,
+   port: process.env.PORT || 3001,
     database: process.env.MONGODB_URI || "mongodb+srv://finalproyecto36:y6dlfVLIT3WW6qap@cluster0.k0c5szm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     secret: process.env.JWT_SECRET || "secret123",
     refreshSecret: process.env.JWT_REFRESH_SECRET || "refresh_secret456",
