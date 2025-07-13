@@ -14,10 +14,9 @@
 - finalproyecto36@gmail.com
 
 ## recurso para el back-end
-git init 
-git add .
-git commit -m "first commit" 
-git branch -M main 
-git remote 
-add origin [https://github.com/repositor que se envia ](https://github.com/ProyectofinalUnsta/back-end)
-git push -u origin main 
+ - git init 
+ - git add .
+ - git commit -m "comentario delo que se hizo en esta rama" 
+ - git branch -M nombre de la rama que se trabajo 
+ - add origin [https://github.com/repositor que se envia ](https://github.com/ProyectofinalUnsta/back-end)
+ - git push -u origin nombre de la rama que se trabajo 
