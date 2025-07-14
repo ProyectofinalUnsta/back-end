@@ -20,7 +20,7 @@ const app = express();
 app.use(
   cors({
     origin: data.allowRequest,  // Permitir todos los orígenes para pruebas en Postman
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, // Permitir cookies (necesario para access_token)
     exposedHeaders: ['Content-Disposition']  // exponer el contenido de las presentaciones
