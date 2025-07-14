@@ -65,4 +65,16 @@ export class DisertanteController {
          res.status(500).send({message:err.message})
       }
   }
+  static async getDisertanteByMail (req,res)  {
+   const {gmail} = req.params
+   if(!gmail) res.status(401).send('Parametro gmaiil no recibido!')
+
+      try {
+         const disertante = Disertante.find({gmail:gmail})
+         if(!disertante) return res.status(200).send({registered:false})
+         res.status(200).send({registered:true})
+      } catch (err) {
+         res.status(500).send(err.message)
+      }
+  }
 }

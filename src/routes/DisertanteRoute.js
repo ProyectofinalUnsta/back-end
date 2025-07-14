@@ -5,6 +5,7 @@ const DisertanteRoute = express.Router()
 
 DisertanteRoute.post('/verifyCode',DisertanteController.verifyCode)
 DisertanteRoute.get('/listaDeDisertante/:IdEvento',DisertanteController.ListaDeDisertantes)
+DisertanteRoute.get('/isertante/:gmail',DisertanteController.getDisertanteByMail)
 DisertanteRoute.post('/crearDisertante', DisertanteController.crearDisertante)
 
 
