@@ -18,7 +18,7 @@ presentationRoute.get("/mispresentaciones/:gmail", PresentationController.getPre
 presentationRoute.get("/event/:eventId", PresentationController.getPresentationsByEvent);
 presentationRoute.delete('/:id',PresentationController.deletePresentation)
  // Rutas que requieren autenticación
- presentationRoute.use("/download/:id", authenticateToken);
+ presentationRoute.use("/download/:id");
 presentationRoute.get("/download/:id", PresentationController.downloadPresentation);
 presentationRoute.post("/presentations",  upload.single("file") ,  PresentationController.createPresentation);
 
