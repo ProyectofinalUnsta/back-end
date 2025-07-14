@@ -8,7 +8,7 @@ import fileRoute from "../routes/fileRoute.js";
 import InscriptosRoute from "../routes/InscriptosRoute.js";
 import DisertanteRoute from "../routes/DisertanteRoute.js";
 import data from "../const/const.js";
-
+import DownloadRoute from "../routes/downloadsRoute.js";
 const router = express.Router();
 
 // Verificar que data.secret esté definido
@@ -25,6 +25,7 @@ router.use("/presentations", presentationRoute);
 router.use("/admin/presentations", adminPresentationRoute);
 router.use("/auth", authRoute);
 router.use("/files", fileRoute);
-router.use('/inscriptos',InscriptosRoute)
+router.use('/inscriptos',InscriptosRoute);
+router.use('/descargas',DownloadRoute);
 
 export default router;
