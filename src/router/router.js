@@ -9,6 +9,7 @@ import InscriptosRoute from "../routes/InscriptosRoute.js";
 import DisertanteRoute from "../routes/DisertanteRoute.js";
 import data from "../const/const.js";
 import DownloadRoute from "../routes/downloadsRoute.js";
+import eventRoute from "../routes/eventRoute.js";
 const router = express.Router();
 
 // Verificar que data.secret esté definido
@@ -27,5 +28,6 @@ router.use("/auth", authRoute);
 router.use("/files", fileRoute);
 router.use('/inscriptos',InscriptosRoute);
 router.use('/descargas',DownloadRoute);
+router.use('/eventos',eventRoute);
 
 export default router;
