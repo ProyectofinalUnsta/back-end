@@ -52,7 +52,7 @@ export class eventController {
 
   static async getEventoById(req, res) {
   try {
-      const evento = await Event.find({creadoPor:req.params.email});
+      const evento = await Event.find({creadoPor:req.params.id});
       if (!evento) {
         return res.status(404).json({ error: "Evento no encontrado" });
       }
