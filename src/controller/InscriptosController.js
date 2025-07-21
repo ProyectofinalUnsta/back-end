@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import Inscriptos from "../schema/InscriptoSchema.js"
 import Presentation from "../schema/PresentationSchema.js"
+import { emailController } from "./emailController.js"
 // Eliminada importación de recuentosInscriptos
 
 export class InscriptosController {
@@ -18,8 +19,17 @@ export class InscriptosController {
                 apellido:apellido
             })
             const savedInscripto = await inscripto.save()
+             const evento = await Event.findOne({_id:idEvento})
 
-        res.status(201).send({message:'Inscripto con exito!',id:savedInscripto._id})
+             const event_name = evento.title
+             const destino = gmail
+             const event_id = idEvento
+             const event_img = evento.imagen
+             const event_descripcion = evento.descripcion
+           
+             const emailresponse = await emailController.InscripcionEvento(destino,event_id,event_name,event_descripcion,event_img)
+
+        res.status(201).send({message:'Inscripto con exito!',id:savedInscripto._id , email:emailresponse})
 
         } catch (err) {
             res.status(401).send(err.message)

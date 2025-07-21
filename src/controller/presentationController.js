@@ -1,6 +1,7 @@
 // src/controller/presentationController.js
 import Presentation from "../schema/PresentationSchema.js";
 import mongoose from "mongoose";
+import { emailController } from "./emailController.js";
 import { getGridFSBucket } from "../lib/gridfs.js";
 import mime from 'mime-types'
 export class PresentationController {
@@ -10,7 +11,6 @@ export class PresentationController {
       const presentations = await Presentation.find().populate("event");
       res.status(200).json(presentations);
     } catch (error) {
-      console.error("Error al obtener presentaciones:", error);
       res.status(500).json({ error: error.message });
     }
   }
@@ -18,13 +18,11 @@ export class PresentationController {
   static async getPresentationByMail(req,res) {
    try {
       const presentation = await Presentation.find({gmail:req.params.gmail}).populate("event");
-      console.log(presentation)
       if (!presentation) {
         return res.status(404).json({ error: "Presentación no encontrada" });
       }
       res.status(200).json(presentation);
     } catch (error) {
-      console.error("Error al obtener presentación:", error);
       res.status(500).json({ error: error.message });
     }
   }
@@ -78,7 +76,6 @@ static async createPresentation(req, res) {
     uploadStream.on("error", (err) => {
       if (!responded) {
         responded = true;
-        console.error("Error subiendo archivo:", err);
         return res.status(500).json({ error: "Error al subir el archivo a GridFS" });
       }
     });
@@ -103,7 +100,7 @@ static async createPresentation(req, res) {
         });
 
         const savedPresentation = await presentation.save();
-
+       const emailresponse = emailController.archivoCreado(gmail,originalname)
         if (!responded) {
           responded = true;
           return res.status(201).json({

@@ -2,6 +2,7 @@ import Event from "../schema/eventSchema.js";
 import { converterController } from "../controller/converterController.js";
 import { emailController } from "./emailController.js";
 import { GeneradorCodigo } from "../utils/generadorCodigo.js";
+import { emailController } from "./emailController.js";
 export class eventController {
   static async getEventos(req, res) {
     try {
@@ -35,9 +36,12 @@ export class eventController {
       creadoPor:email,
       codigoDisertante:codigoDisertante
     });
-
     await event.save();
-    await emailController.crearEvento(codigoDisertante,event.creadoPor)
+    const event_name = event.title
+    const event_id = event._id
+    const codigo = codigoDisertante
+    const mail = event.creadoPor
+    await emailController.crearEvento(event_name,event_id,codigo,mail)
     return res.status(200).json({ message: 'Evento creado de manera exitosa!' });
 
   } catch (error) {
@@ -49,15 +53,15 @@ export class eventController {
 
   static async getEventoById(req, res) {
   try {
-    const evento = await Event.findById(req.params.id);
-    if (!evento) {
-      return res.status(404).json({ error: "Evento no encontrado" });
-    }
-    res.status(200).json(evento);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+      const evento = await Event.find({creadoPor:req.params.id});
+      if (!evento) {
+        return res.status(404).json({ error: "Evento no encontrado" });
+      }
+      res.status(200).json(evento);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
 }
+  }
 
   static async updateEvento(req, res) {
     try {
