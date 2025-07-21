@@ -2,7 +2,6 @@ import Event from "../schema/eventSchema.js";
 import { converterController } from "../controller/converterController.js";
 import { emailController } from "./emailController.js";
 import { GeneradorCodigo } from "../utils/generadorCodigo.js";
-import { emailController } from "./emailController.js";
 export class eventController {
   static async getEventos(req, res) {
     try {
