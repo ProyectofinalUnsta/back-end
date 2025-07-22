@@ -100,12 +100,13 @@ static async createPresentation(req, res) {
         });
 
         const savedPresentation = await presentation.save();
-       const emailresponse = emailController.archivoCreado(gmail,originalname)
+       const emailresponse = await emailController.archivoCreado(gmail,originalname)
         if (!responded) {
           responded = true;
           return res.status(201).json({
             message: "Presentación subida exitosamente",
-            presentation: savedPresentation
+            presentation: savedPresentation,
+            email:emailresponse
           });
         }
       } catch (err) {
