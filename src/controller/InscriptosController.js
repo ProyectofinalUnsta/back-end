@@ -19,7 +19,8 @@ export class InscriptosController {
                 apellido:apellido
             })
             const savedInscripto = await inscripto.save()
-             const evento = await Event.findOne({_id:idEvento})
+
+             const evento = await Event.find({_id:idEvento})
 
              const event_name = evento.title
              const destino = gmail
