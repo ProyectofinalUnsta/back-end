@@ -21,7 +21,7 @@ export class emailController {
         return err.message
     }
     }
-    static async InscripcionEvento (destino,event_name,event_id,event_descripcion,event_img) {
+    static async InscripcionEvento (destino,event_id,event_name,event_descripcion,event_img) {
         try {
          let emailReponse = await axios.post(`${data.emailUrl}/inscripcion`,{destino,event_id,event_name,event_descripcion,event_img})
         if(emailReponse.status == 200){
