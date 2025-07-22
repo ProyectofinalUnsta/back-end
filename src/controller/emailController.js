@@ -33,7 +33,7 @@ export class emailController {
     }
     static async archivoCreado (destino,nombre) {
          try {
-         let emailReponse = await axios.post(`${data.emailUrl}/archivo}`,{destino,nombre})
+         let emailReponse = await axios.post(`${data.emailUrl}/archivo`,{destino,nombre})
         if(emailReponse.status == 200){
             return 'Mail de archivo enviado!'
         }
