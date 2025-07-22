@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 import Inscriptos from "../schema/InscriptoSchema.js"
 import Presentation from "../schema/PresentationSchema.js"
 import { emailController } from "./emailController.js"
+import Event from "../schema/eventSchema.js"
 // Eliminada importación de recuentosInscriptos
 
 export class InscriptosController {
@@ -20,7 +21,7 @@ export class InscriptosController {
             })
             const savedInscripto = await inscripto.save()
 
-             const evento = await Event.find({_id:idEvento})
+             const evento = await Event.findOne({_id:idEvento})
 
              const event_name = evento.title
              const destino = gmail
