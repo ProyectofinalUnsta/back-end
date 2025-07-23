@@ -22,6 +22,12 @@ const data = {
       // Excel (opcional)
       "application/vnd.ms-excel",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      // Imágenes
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/webp",
+      "image/gif",
     ],
     maxFileSize: process.env.MAX_FILE_SIZE || 20 * 1024 * 1024, // 20MB por defecto
   };

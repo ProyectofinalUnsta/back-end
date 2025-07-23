@@ -35,13 +35,13 @@ app.use(cookieParser());
 // Servir archivos estáticos desde la carpeta uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Rutas API
-app.use("/api", router);
-
 // Ruta raíz para confirmar que el servidor está corriendo
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Eventum API is running" });
 });
+
+// Rutas API
+app.use("/api", router);
 
 // Middleware de manejo de errores global
 app.use((err, req, res, next) => {
