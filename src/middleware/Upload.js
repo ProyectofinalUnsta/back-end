@@ -1,5 +1,3 @@
-
-
 // middleware/upload.js
 import multer from "multer";
 import data from "../const/const.js";

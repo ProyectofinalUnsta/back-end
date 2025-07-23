@@ -2,14 +2,10 @@ import jwt from "jsonwebtoken";
 import data from "../const/const.js";
 
 export const authenticateToken = (req, res, next) => {
-  console.log("🔐 authenticateToken - cookies:", req.cookies);
-  console.log("🔐 authenticateToken - headers:", req.headers);
   
   const rawToken = req.cookies.access_token || req.headers.authorization?.split(" ")[1];
   const token = rawToken?.replace(/^"|"$/g, '');
   
-  console.log("🔐 authenticateToken - rawToken:", rawToken);
-  console.log("🔐 authenticateToken - cleaned token:", token);
   
   if (!token) {
     console.log("❌ authenticateToken - No token provided");

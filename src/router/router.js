@@ -19,14 +19,9 @@ if (!data.secret) {
   process.exit(1);
 }
 
-// Middleware de logging para debuggear
-router.use((req, res, next) => {
-  console.log(`🔍 Router - ${req.method} ${req.path}`);
-  next();
-});
 
 // Montar las rutas
-router.use("/eventos", userRoute);
+router.use("/", userRoute);
 router.use('/disertante',DisertanteRoute)
 router.use("/admin", adminRoute);
 router.use("/presentations", presentationRoute);
@@ -38,10 +33,7 @@ router.use('/descargas',DownloadRoute);
 router.use('/eventos',eventRoute);
 router.use('/user', userProfileRoute);
 
-// Ruta de prueba para verificar que el router funciona
-router.get("/test", (req, res) => {
-  console.log("✅ Router test endpoint hit");
-  res.status(200).json({ message: "Router working" });
-});
+
+
 
 export default router;
