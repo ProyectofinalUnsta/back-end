@@ -69,6 +69,8 @@ export class AuthController {
           username: user.username,
           mail:user.email,
           role: user.role,
+          displayName: user.displayName || user.username,
+          profileImage: user.profileImage,
         },
         token: token,
       });
