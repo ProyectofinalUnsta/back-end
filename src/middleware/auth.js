@@ -3,7 +3,7 @@ import data from "../const/const.js";
 
 export const authenticateToken = (req, res, next) => {
   
-  const rawToken = req.cookies.access_token || req.headers.authorization?.split(" ")[1];
+  const rawToken = req.cookies.token || req.headers.authorization?.split(" ")[1];
   const token = rawToken?.replace(/^"|"$/g, '');
   
   
