@@ -8,17 +8,15 @@ export const authenticateToken = (req, res, next) => {
   
   
   if (!token) {
-    console.log("❌ authenticateToken - No token provided");
+
     return res.status(401).json({ error: "Unauthorized: No token provided" });
   }
 
   try {
     const decoded = jwt.verify(token, data.secret);
-    console.log("🔐 authenticateToken - decoded token:", decoded);
     req.user = decoded;
     next();
   } catch (error) {
-    console.log("❌ authenticateToken - Invalid token:", error.message);
     return res.status(401).json({ error: "Unauthorized: Invalid token" });
   }
 };
