@@ -23,7 +23,7 @@ export const converterController = async (imagen) => {
       }
       return response
     } catch (externalError) {   
-      console.log(externalError)
+      console.log(externalError.message)
     }
 
 
