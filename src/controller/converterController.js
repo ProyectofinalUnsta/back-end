@@ -1,16 +1,8 @@
 import axios from "axios"
 import FormData from "form-data"
-import path from "path"
-import { fileURLToPath } from 'url'
-import fs from "fs"
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export const converterController = async (imagen) => {
-  try {
-    console.log("🖼️ converterController - processing image:", imagen.originalname);
-    
+  try { 
     // Intentar usar el servicio externo primero
     try {
       const form = new FormData()
