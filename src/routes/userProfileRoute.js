@@ -10,6 +10,6 @@ const router = express.Router();
 router.get("/profile", authenticateToken, UserController.getProfile);
 
 // Actualizar perfil del usuario
-router.put("/profile", authenticateToken, upload.single("image"), UserController.updateProfile);
+router.put("/profile", authenticateToken, upload.single("profileImage"), UserController.updateProfile);
 
 export default router; 
