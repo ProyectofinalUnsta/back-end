@@ -5,11 +5,6 @@ import upload from "../middleware/Upload.js";
 
 const router = express.Router();
 
-// Endpoint de prueba
-router.get("/test", (req, res) => {
-  console.log("✅ Test endpoint hit");
-  res.status(200).json({ message: "User profile routes working" });
-});
 
 // Obtener perfil del usuario
 router.get("/profile", authenticateToken, UserController.getProfile);

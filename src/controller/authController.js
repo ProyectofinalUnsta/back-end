@@ -10,7 +10,6 @@ export class AuthController {
     
       // Verificar si el usuario ya existe
       const existingUser = await User.findOne({ username });
-      console.log(existingUser)
       if (existingUser) {
         return res.status(400).json({ error: "El nombre de usuario ya está en uso" });
       }
@@ -25,11 +24,8 @@ export class AuthController {
 
       const hashedPassword = await bcrypt.hash(password, 10); // Hashear la contraseña
       const user = new User({ username, password: hashedPassword, email });
-      console.log(user)
       await user.save();
-       console.log(user)
       const MailResponse = await emailController.registroEmail(email);
-      console.log(MailResponse)
       // No devolver la contraseña en la respuesta
       let userResponse = user.toObject();
       delete userResponse.password;
@@ -54,7 +50,6 @@ export class AuthController {
       const token = jwt.sign({ id: user._id, username: user.username, role: user.role }, data.secret, {
         expiresIn: data.tokenExpiry,
       });
-       console.log(token)
       // Configurar cookies
       res.cookie("access_token", token, {
         httpOnly: true,
