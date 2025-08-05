@@ -1,22 +1,38 @@
-### Eventum <img src="https://i.postimg.cc/9MKkZ1SF/Whats-App-Image-2025-04-10-at-21-24-33-cc7c0afc-removebg-preview.webp" width="40px" height="34px" />
+# <img src="https://i.postimg.cc/9MKkZ1SF/Whats-App-Image-2025-04-10-at-21-24-33-cc7c0afc-removebg-preview.webp" width="40px" height="34px" /> Eventum Service
 
-## ¿ Quienes Somos ?
-- Somos una aplicacion de gestion de veentos que permite el facil control de todos tus eventos y facilita la gestion y carga de archivos para los expositores!
+## Eventum Service
 
-## ¿ Porque Eventum ?
-- Facil control de los Eventos
-- Control en tiempo real de tus eventos
-- Ui facil de entender y utilizar
-- Facilidad para subir y utilizar archivos!!
+- Servicio principal de Eventum encargado de la logica de negocio de la aplicacion.
+## Acciones que Realiza el Servicio
 
-## 📧 Contact
+- Crear cuenta / iniciar sesion.
+- crear, modificar, eliminar, leer Eventos.
+- crear, modificar, eliminar disertantes.
+- subir, eliminar, descargar archivos
+- inscribirse, darse de baja eventos.
+- subir, eliminar, modificar foto de perfil y nombre.
 
-- finalproyecto36@gmail.com
+## Rutas Publicas
 
-## recurso para el back-end
- - git init 
- - git add .
- - git commit -m "comentario delo que se hizo en esta rama" 
- - git branch -M nombre de la rama que se trabajo 
- - add origin [https://github.com/repositor que se envia ](https://github.com/ProyectofinalUnsta/back-end)
- - git push -u origin nombre de la rama que se trabajo 
+- `/api`
+
+## Rutas 
+
+- `/api/`
+- `api/disertante`
+- `/presentaciones`
+- `/inscriptos`
+- `/auth`
+- `/files`
+- `/eventos`
+- 
+## Rutas protegidas
+
+- `/api/admin`
+- `/api/admin/presentaciones`
+- `api/user`
+- `api/descargas`
+
+## Deployment
+
+- Render
