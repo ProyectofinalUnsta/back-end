@@ -2,7 +2,8 @@
 
 ## Eventum Service
 
-- Servicio principal de Eventum encargado de la logica de negocio de la aplicacion.
+Servicio principal de Eventum encargado de la logica de negocio de la aplicacion.
+
 ## Acciones que Realiza el Servicio
 
 - Crear cuenta / iniciar sesion.
