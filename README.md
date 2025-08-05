@@ -25,7 +25,7 @@
 - `/auth`
 - `/files`
 - `/eventos`
-- 
+
 ## Rutas protegidas
 
 - `/api/admin`
